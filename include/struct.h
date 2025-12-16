@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 11:24:11 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/15 14:44:08 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/16 10:52:09 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_player
 typedef struct s_map
 {
 	int			tile_size;
-	int			screen_height;
-	int			screen_width;
+	int			map_height;
+	int			map_width;
 	char		**map;
 }	t_map;
 
@@ -46,8 +46,6 @@ typedef struct s_game
 	t_player	player;
 	t_map		map;
 
-	int			nb_exit;
-	int			nb_player;
 	int			nb_collectible_total;
 	int			nb_collectible_get;
 }	t_game;

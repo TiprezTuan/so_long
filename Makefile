@@ -6,7 +6,7 @@
 #    By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/13 15:23:13 by ttiprez           #+#    #+#              #
-#    Updated: 2025/12/15 14:39:04 by ttiprez          ###   ########.fr        #
+#    Updated: 2025/12/16 13:45:34 by ttiprez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRC			= main.c \
 			  get_next_line_utils.c \
 			  check_map_integrity.c \
 			  parse_map.c \
-			  error_management.c
+			  error_management.c \
+			  render_game.c \
+			  player_actions.c
 
 HEADER_DIR	= include
 HEADER		= $(HEADER_DIR)/so_long.h $(HEADER_DIR)/get_next_line.h $(HEADER_DIR)/struct.h

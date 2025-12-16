@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:18:50 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/15 14:48:28 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:49:53 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	count_components(t_game *game, char *line)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (line[i] == COLLECTIBLE)
-			game->nb_collectible_total++;
-		if (line[i] == PLAYER)
-			game->nb_player++;
-		if (line[i] == EXIT)
-			game->nb_exit++;
-	}	
-}
-
 static int	count_lines_map(t_game *game, char *pathname_map)
 {
-	int	fd;
-	int	nb_lines;
+	int		fd;
+	int		nb_lines;
+	char	*content;
 
 	fd = open(pathname_map, O_RDONLY);
 	if (fd < 0)
@@ -46,12 +31,52 @@ static int	count_lines_map(t_game *game, char *pathname_map)
 		perror(pathname_map);
 		exit(EXIT_FAILURE);
 	}
-	while (get_next_line(fd))
+	nb_lines = 0;
+	content = get_next_line(fd);
+	while (content)
+	{
 		nb_lines++;
+		free(content);
+		content = get_next_line(fd);
+	}
 	close(fd);
 	if (nb_lines < 3)
-		clean_exit_err(game, "Error\nInvalid map size.");
+		clean_exit_err(game, "Error\nMinimum size 3x3\n");
 	return (nb_lines);
+}
+
+void	get_player_position(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (game->map.map[++i])
+	{
+		j = -1;
+		while (game->map.map[i][++j])
+			if (game->map.map[i][j] == PLAYER)
+			{
+				game->player.player_x = j;
+				game->player.player_y = i;
+				return ;
+			}
+	}
+}
+
+void	get_nb_collectible(t_game *game)
+{
+		int	i;
+	int	j;
+
+	i = -1;
+	while (game->map.map[++i])
+	{
+		j = -1;
+		while (game->map.map[i][++j])
+			if (game->map.map[i][j] == COLLECTIBLE)
+				game->nb_collectible_total++;
+	}
 }
 
 char	**parse_map(t_game *game, char *pathname_map)
@@ -61,7 +86,8 @@ char	**parse_map(t_game *game, char *pathname_map)
 	int		fd;
 	int		i;
 
-	map = malloc(sizeof(char *) * (count_lines_map(game, pathname_map) + 1));
+	game->map.map_height = count_lines_map(game, pathname_map);
+	map = malloc(sizeof(char *) * (game->map.map_height + 1));
 	fd = open(pathname_map, O_RDONLY);
 	if (fd < 0)
 	{
@@ -70,11 +96,11 @@ char	**parse_map(t_game *game, char *pathname_map)
 	}
 	i = 0;
 	content_gnl = get_next_line(fd);
+	game->map.map_width = ft_strlen(content_gnl) - 1;
 	game->nb_collectible_total = 0;
 	while (content_gnl)
 	{
 		map[i++] = content_gnl;
-		count_components(game, content_gnl);
 		content_gnl = get_next_line(fd);
 	}
 	map[i] = NULL;
