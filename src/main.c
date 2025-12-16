@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:24 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 14:17:34 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:20:50 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int ac, char **av)
 	check_argc(ac, av);
 	init_game_value(&game);
 	game.map.map = parse_map(&game, av[1]);
+	pathfinder(&game.map);
 	if (!check_map_integrity(game.map.map))
 		clean_exit_err(&game, NULL);
 	init_game(&game);

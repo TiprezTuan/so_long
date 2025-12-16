@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 13:43:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 14:27:36 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:05:47 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	update_player_position(t_game *game, int px, int py)
 		game->player.nb_move++;
 	}
 	if (status_func == 1)
-		finish_game(game);
+		clean_exit(game);
 }
 
 int	player_actions(int key, t_game *game)

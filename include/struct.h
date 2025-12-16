@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 11:24:11 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 10:52:09 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:14:55 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,13 @@ typedef struct s_game
 	int			nb_collectible_total;
 	int			nb_collectible_get;
 }	t_game;
+
+typedef struct s_pathfinder
+{
+	int	x;
+	int y;
+	int	nb_component_get;
+	int	nb_component_total;
+}	t_pathfinder;
 
 #endif

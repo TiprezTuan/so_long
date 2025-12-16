@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:45 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 14:21:20 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:20:31 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,8 @@ void	update_textures(t_game *game);
 
 /*		player_actions.c	*/
 int		player_actions(int key, t_game *game);
+
+/*		pathfinding.c	   */
+bool	pathfinder(t_map *map);
 
 #endif
