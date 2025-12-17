@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 11:24:11 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 16:14:55 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/17 03:39:14 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,11 @@ typedef struct s_pathfinder
 	int	nb_component_get;
 	int	nb_component_total;
 }	t_pathfinder;
+
+typedef struct s_case
+{
+	int x;
+	int y;
+}	t_case;
 
 #endif
