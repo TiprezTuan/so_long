@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:24 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 16:20:50 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/17 16:54:40 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,8 @@
 #include "mlx.h"
 
 #include <stdlib.h>
-#include <stdbool.h>
-#include <stdio.h>
 
-bool	init_textures(t_game *game)
-{
-	int	w;
-	int	h;
-
-	game->textures.floor = mlx_xpm_file_to_image(game->mlx,
-			"./texture/floor.xpm", &w, &h);
-	game->textures.exit = mlx_xpm_file_to_image(game->mlx,
-			"./texture/exit.xpm", &w, &h);
-	game->textures.collectible = mlx_xpm_file_to_image(game->mlx,
-			"./texture/collectible.xpm", &w, &h);
-	game->textures.player = mlx_xpm_file_to_image(game->mlx,
-			"./texture/player.xpm", &w, &h);
-	game->textures.wall = mlx_xpm_file_to_image(game->mlx,
-			"./texture/wall.xpm", &w, &h);
-	if (!game->textures.floor || !game->textures.exit
-		|| !game->textures.collectible
-		|| !game->textures.player || !game->textures.wall)
-		return (false);
-	game->map.tile_size = w;
-	return (true);
-}
-
-void	init_game(t_game *game)
-{
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		exit (EXIT_FAILURE);
-	if (!init_textures(game))
-		clean_exit_err(game, "Failed to load images");
-	game->win = mlx_new_window(game->mlx,
-			game->map.map_height * game->map.tile_size,
-			game->map.map_width * game->map.tile_size, "so_long");
-	get_player_position(game);
-	get_nb_collectible(game);
-	if (!game->win)
-		clean_exit_err(game, "Failed to create window");
-}
-
-void	check_argc(int ac, char **av)
+static void	check_argc(int ac, char **av)
 {
 	if (ac != 2)
 	{
@@ -71,19 +30,29 @@ void	check_argc(int ac, char **av)
 	}
 }
 
-void	init_game_value(t_game *game)
+static t_map	*copy_map(t_map map)
 {
-	game->map.map = NULL;
-	game->mlx = NULL;
-	game->win = NULL;
-	game->textures.collectible = NULL;
-	game->textures.floor = NULL;
-	game->textures.exit = NULL;
-	game->textures.player = NULL;
-	game->textures.wall = NULL;
-	game->nb_collectible_get = 0;
-	game->nb_collectible_total = 0;
-	game->player.nb_move = 0;
+	t_map	*map_copied;
+	int		i;
+
+	map_copied = malloc(sizeof(t_map));
+	if (!map_copied)
+		return (NULL);
+	map_copied->map_height = map.map_height;
+	map_copied->map_width = map.map_width;
+	map_copied->map = malloc(sizeof(char *) * (map.map_height + 1));
+	if (!map_copied->map)
+		return (free(map_copied), NULL);
+	i = 0;
+	while (i < map.map_height)
+	{
+		map_copied->map[i] = ft_strdup(map.map[i]);
+		if (!map_copied->map[i])
+			return (free_map(map_copied), free(map_copied), NULL);
+		i++;
+	}
+	map_copied->map[i] = NULL;
+	return (map_copied);
 }
 
 int	main(int ac, char **av)
@@ -93,13 +62,14 @@ int	main(int ac, char **av)
 	check_argc(ac, av);
 	init_game_value(&game);
 	game.map.map = parse_map(&game, av[1]);
-	pathfinder(&game.map);
 	if (!check_map_integrity(game.map.map))
 		clean_exit_err(&game, NULL);
+	if (!pathfinder(copy_map(game.map), &(t_pathfinder){0, 0, 0, 0}))
+		clean_exit_err(&game, "Error\nNo valid path in the map");
 	init_game(&game);
 	update_textures(&game);
 	mlx_hook(game.win, 17, 0, clean_exit, &game);
-	mlx_hook(game.win, 02, (1L<<0), player_actions, &game);
+	mlx_hook(game.win, 02, (1L << 0), player_actions, &game);
 	mlx_loop(game.mlx);
 	return (EXIT_SUCCESS);
 }

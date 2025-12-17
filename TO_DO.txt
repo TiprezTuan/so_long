@@ -1,7 +1,0 @@
-Pathfinding de la map :
-	A faire pour que la map soit considere comme valide : 
-		- Avoir acces a tout les collectibles depuis la case depart
-		- Avoir acces a la sortie depuis la case depart
-
-	Algo :
-		- Algo de backtracking qui cherche tout les chemins possible jusqu'a en trouver un possible, sinon renvoie Error et le programme s'arret ici

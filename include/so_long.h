@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:45 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 16:20:31 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/17 16:56:41 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define EXIT			'E'
 # define WALL			'1'
 # define FLOOR			'0'
+# define VISITED		'V'
 # define W_UP			119
 # define A_LEFT			97
 # define S_DOWN			115
@@ -41,6 +42,7 @@ char	**parse_map(t_game *game, char *pathname_map);
 bool	check_map_integrity(char **map);
 
 /*		error_management.c		*/
+void	free_map(t_map *map);
 void	clean_exit_err(t_game *game, char *msg);
 int		clean_exit(t_game *game);
 
@@ -51,6 +53,10 @@ void	update_textures(t_game *game);
 int		player_actions(int key, t_game *game);
 
 /*		pathfinding.c	   */
-bool	pathfinder(t_map *map);
+bool	pathfinder(t_map *map_copy, t_pathfinder *finder);
+
+/*		init_game.c		 */
+void	init_game(t_game *game);
+void	init_game_value(t_game *game);
 
 #endif

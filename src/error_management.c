@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:32:41 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 13:37:36 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/17 15:46:05 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ static void	destroy_all_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->textures.wall);
 }
 
-static void	free_map(t_game *game)
+void	free_map(t_map *map)
 {
 	int	i;
 
 	i = -1;
-	while (game->map.map[++i])
-		free(game->map.map[i]);
-	free(game->map.map);
+	while (map->map[++i])
+		free(map->map[i]);
+	free(map->map);
 }
 
 void	clean_exit_err(t_game *game, char *msg)
 {
 	if (game->map.map)
-		free_map(game);
+		free_map(&game->map);
 	destroy_all_images(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
@@ -59,7 +59,7 @@ void	clean_exit_err(t_game *game, char *msg)
 int	clean_exit(t_game *game)
 {
 	if (game->map.map)
-		free_map(game);
+		free_map(&game->map);
 	destroy_all_images(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);

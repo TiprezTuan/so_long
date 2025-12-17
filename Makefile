@@ -6,7 +6,7 @@
 #    By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/13 15:23:13 by ttiprez           #+#    #+#              #
-#    Updated: 2025/12/16 16:06:16 by ttiprez          ###   ########.fr        #
+#    Updated: 2025/12/17 16:58:14 by ttiprez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,16 @@ LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
 SRC_DIR		= src
-SRC			= main.c \
-			  get_next_line.c \
-			  get_next_line_utils.c \
-			  check_map_integrity.c \
-			  parse_map.c \
-			  error_management.c \
-			  render_game.c \
-			  player_actions.c \
-			  pathfinding.c
+SRC			= main.c					\
+			  init_game.c				\
+			  parse_map.c				\
+			  pathfinding.c				\
+			  render_game.c				\
+			  get_next_line.c			\
+			  player_actions.c			\
+			  error_management.c		\
+			  get_next_line_utils.c		\
+			  check_map_integrity.c		\
 
 HEADER_DIR	= include
 HEADER		= $(HEADER_DIR)/so_long.h $(HEADER_DIR)/get_next_line.h $(HEADER_DIR)/struct.h
@@ -49,6 +50,7 @@ $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(MLX_LIB) $(LIBFT) -lXext -lX11 -lm -o $(NAME)
 
 clean:
+	make -C $(LIBFT_DIR) clean
 	rm -rf $(OBJ_DIR)
 
 fclean: clean

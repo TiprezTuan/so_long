@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:18:50 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 13:49:53 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/17 16:39:03 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,20 @@ void	get_player_position(t_game *game)
 	{
 		j = -1;
 		while (game->map.map[i][++j])
+		{
 			if (game->map.map[i][j] == PLAYER)
 			{
 				game->player.player_x = j;
 				game->player.player_y = i;
 				return ;
 			}
+		}
 	}
 }
 
 void	get_nb_collectible(t_game *game)
 {
-		int	i;
+	int	i;
 	int	j;
 
 	i = -1;

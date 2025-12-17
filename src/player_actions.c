@@ -6,11 +6,12 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 13:43:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 16:05:47 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/17 16:56:22 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft.h"
 #include "mlx.h"
 
 #include <stdio.h>
@@ -33,9 +34,10 @@ int	check_new_position(t_game *game, int px, int py)
 
 void	update_player_position(t_game *game, int px, int py)
 {
-	int	old_x;
-	int	old_y;
-	int	status_func;
+	int		old_x;
+	int		old_y;
+	int		status_func;
+	char	*nb_moves;
 
 	old_x = game->player.player_x;
 	old_y = game->player.player_y;
@@ -47,6 +49,10 @@ void	update_player_position(t_game *game, int px, int py)
 		game->map.map[py][px] = PLAYER;
 		game->map.map[old_y][old_x] = FLOOR;
 		game->player.nb_move++;
+		nb_moves = ft_itoa(game->player.nb_move + 1);
+		ft_putstr_fd("nb_moves = ", 1);
+		ft_putendl_fd(nb_moves, 1);
+		free(nb_moves);
 	}
 	if (status_func == 1)
 		clean_exit(game);
@@ -60,13 +66,13 @@ int	player_actions(int key, t_game *game)
 	px = game->player.player_x;
 	py = game->player.player_y;
 	if (key == W_UP || key == UP_ARROW)
-		update_player_position(game, px - 1, py);
-	else if (key == A_LEFT || key == LEFT_ARROW)
 		update_player_position(game, px, py - 1);
+	else if (key == A_LEFT || key == LEFT_ARROW)
+		update_player_position(game, px - 1, py);
 	else if (key == S_DOWN || key == DOWN_ARROW)
-		update_player_position(game, px + 1, py);
-	else if (key == D_RIGHT || key == RIGHT_ARROW)
 		update_player_position(game, px, py + 1);
+	else if (key == D_RIGHT || key == RIGHT_ARROW)
+		update_player_position(game, px + 1, py);
 	else if (key == ESC_BUTTON)
 		clean_exit(game);
 	else

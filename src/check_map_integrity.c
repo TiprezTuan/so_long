@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 13:59:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/16 13:39:56 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/17 16:39:38 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,5 @@ bool	check_map_integrity(char **map)
 		ft_putendl_fd("starting position and at least 1 collectible.", 2);
 		return (false);
 	}
-	//if (!have_valid_path(map))
-	//{
-	//	ft_putendl_fd("Error", 2);
-	//	ft_putendl_fd("The map must contain one valid path", 2);
-	//}
 	return (true);
 }
