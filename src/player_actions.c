@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 13:43:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/19 15:08:01 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 15:34:51 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,35 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int	check_new_position(t_game *game, int px, int py)
+static int	check_new_position(t_game *game, int *px, int *py)
 {
-	if (game->map.map[py][px] == WALL)
+	if (game->map.map[*py][*px] == WALL)
 		return (0);
-	if (game->map.map[py][px] == COLLECTIBLE)
+	if (game->map.map[*py][*px] == PORTAL)
+	{
+		if (*py == game->portals.entry_y && *px == game->portals.entry_x)
+		{
+			*py = game->portals.exit_y;
+			*px = game->portals.exit_x;
+		}
+		else if (*py == game->portals.exit_y && *px == game->portals.exit_x)
+		{
+			*py = game->portals.entry_y;
+			*px = game->portals.entry_x;
+		}
+		return (2);
+	}
+	if (game->map.map[*py][*px] == COLLECTIBLE)
 	{
 		game->nb_collectible_get++;
 		return (2);
 	}
-	if (game->map.map[py][px] == EXIT)
+	if (game->map.map[*py][*px] == EXIT)
 		return (game->nb_collectible_get == game->nb_collectible_total);
 	return (2);
 }
 
-void	update_player_position(t_game *game, int px, int py)
+static void	update_player_position(t_game *game, int px, int py)
 {
 	int		old_x;
 	int		old_y;
@@ -41,7 +55,7 @@ void	update_player_position(t_game *game, int px, int py)
 
 	old_x = game->player.player_x;
 	old_y = game->player.player_y;
-	status_func = check_new_position(game, px, py);
+	status_func = check_new_position(game, &px, &py);
 	if (status_func)
 	{
 		game->player.player_x = px;
@@ -56,6 +70,14 @@ void	update_player_position(t_game *game, int px, int py)
 	}
 	if (status_func == 1)
 		clean_exit(game);
+}
+
+static void	respawn_portals(t_game *game)
+{
+	if (game->map.map[game->portals.entry_y][game->portals.entry_x] == FLOOR)
+		game->map.map[game->portals.entry_y][game->portals.entry_x] = PORTAL;
+	if (game->map.map[game->portals.exit_y][game->portals.exit_x] == FLOOR)
+		game->map.map[game->portals.exit_y][game->portals.exit_x] = PORTAL;
 }
 
 int	player_actions(int key, t_game *game)
@@ -77,6 +99,7 @@ int	player_actions(int key, t_game *game)
 		clean_exit(game);
 	else
 		return (0);
+	respawn_portals(game);
 	update_textures(game);
 	return (1);
 }

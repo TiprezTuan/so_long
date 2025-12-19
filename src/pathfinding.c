@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 15:39:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 16:30:21 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 15:51:20 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,27 @@ static void	set_finder_xy(t_map *map, t_pathfinder *finder)
 	}
 }
 
-void	browse_map(t_map *map, t_pathfinder *f, int nx, int ny)
+static void go_to_exit_portal(t_map *map, int *ny, int *nx)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (map->map[++i])
+	{
+		j = -1;
+		while (map->map[i][++j])
+		{
+			if (map->map[i][j] == PORTAL && i != *ny && j != *nx)
+			{
+				*ny = i;
+				*nx = j;
+			}
+		}
+	}
+}
+
+static void	browse_map(t_map *map, t_pathfinder *f, int nx, int ny)
 {
 	if (map->map[ny][nx] == EXIT ||
 		map->map[ny][nx] == COLLECTIBLE)
@@ -68,6 +88,11 @@ void	browse_map(t_map *map, t_pathfinder *f, int nx, int ny)
 	{
 		map->map[ny][nx] = VISITED;
 		return ;
+	}
+	if (map->map[ny][nx] == PORTAL)
+	{
+		map->map[ny][nx] = VISITED;
+		go_to_exit_portal(map, &ny, &nx);
 	}
 	map->map[ny][nx] = VISITED;
 	browse_map(map, f, nx + 1, ny);
