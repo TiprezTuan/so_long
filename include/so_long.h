@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:45 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 16:56:41 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 14:41:41 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define COLLECTIBLE	'C'
 # define PLAYER			'P'
+# define PORTAL			'X'
 # define EXIT			'E'
 # define WALL			'1'
 # define FLOOR			'0'
@@ -34,8 +35,9 @@
 # define ESC_BUTTON		65307
 
 /*		parse_map.c		*/
-void	get_player_position(t_game *game);
-void	get_nb_collectible(t_game *game);
+void	set_player_position(t_game *game);
+void	set_nb_collectible(t_game *game);
+void	set_portals_positions(t_game *game);
 char	**parse_map(t_game *game, char *pathname_map);
 
 /*		check_map_integrity.c		*/

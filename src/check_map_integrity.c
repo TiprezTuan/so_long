@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 13:59:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 16:39:38 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 14:41:55 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,45 @@ static bool	have_valid_components(char **map)
 	return (nb_exit == 1 && nb_player == 1 && nb_collectible > 0);
 }
 
+static bool	have_valid_numbers_of_portals(char **map)
+{
+	int	nb_portals;
+	int	i;
+	int	j;
+
+	nb_portals = 0;
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+			if (map[i][j] == PORTAL)
+				nb_portals++;
+	}
+	return (nb_portals == 0 || nb_portals == 2);
+}
+
 bool	check_map_integrity(char **map)
 {
 	if (!is_enclosed_by_wall(map))
 	{
 		ft_putendl_fd("Error", 2);
-		ft_putendl_fd("The map must be enclosed by wall.", 2);
-		return (false);
+		return (ft_putendl_fd("The map must be enclosed by wall.", 2), false);
 	}
 	if (!is_rectangle(map))
 	{
-		ft_putendl_fd("Error", 2);
-		ft_putstr_fd("2 lines with differents size. ", 2);
-		ft_putendl_fd("The map must be a rectangle.", 2);
-		return (false);
+		ft_putstr_fd("Error\n2 lines with differents size. ", 2);
+		return (ft_putendl_fd("The map must be a rectangle.", 2), false);
 	}
 	if (!have_valid_components(map))
 	{
-		ft_putendl_fd("Error", 2);
-		ft_putstr_fd("The map must contain 1 exit, 1 ", 2);
-		ft_putendl_fd("starting position and at least 1 collectible.", 2);
+		ft_putstr_fd("Error\nThe map must contain 1 exit, 1 starting ", 2);
+		ft_putendl_fd("position, at least 1 collectible and 0 or 2 portals", 2);
+		return (false);
+	}
+	if (!have_valid_numbers_of_portals(map))
+	{
+		ft_putendl_fd("Error\nThe map must contain 0 or 2 portals.", 2);
 		return (false);
 	}
 	return (true);

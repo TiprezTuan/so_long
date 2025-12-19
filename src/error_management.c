@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:32:41 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 15:46:05 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 15:21:10 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	destroy_all_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->textures.player);
 	if (game->textures.wall)
 		mlx_destroy_image(game->mlx, game->textures.wall);
+	if (game->textures.portal)
+		mlx_destroy_image(game->mlx, game->textures.portal);
 }
 
 void	free_map(t_map *map)

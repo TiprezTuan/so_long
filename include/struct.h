@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 11:24:11 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 14:59:58 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 14:52:43 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_textures
 	void	*collectible;
 	void	*player;
 	void	*exit;
+	void	*portal;
 }	t_textures;
 
 typedef struct s_player
@@ -37,6 +38,14 @@ typedef struct s_map
 	char		**map;
 }	t_map;
 
+typedef struct s_portals
+{
+	int		entry_x;
+	int		entry_y;
+	int		exit_x;
+	int		exit_y;
+}	t_portals;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -45,6 +54,7 @@ typedef struct s_game
 	t_textures	textures;
 	t_player	player;
 	t_map		map;
+	t_portals	portals;
 
 	int			nb_collectible_total;
 	int			nb_collectible_get;

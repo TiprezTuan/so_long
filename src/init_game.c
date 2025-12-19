@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 16:10:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 16:36:33 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 15:20:26 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ static bool	init_textures(t_game *game)
 			"./texture/player.xpm", &w, &h);
 	game->textures.wall = mlx_xpm_file_to_image(game->mlx,
 			"./texture/wall.xpm", &w, &h);
+	game->textures.portal = mlx_xpm_file_to_image(game->mlx,
+			"./texture/portal.xpm", &w, &h);
 	if (!game->textures.floor || !game->textures.exit
-		|| !game->textures.collectible
-		|| !game->textures.player || !game->textures.wall)
+		|| !game->textures.collectible || !game->textures.player
+		|| !game->textures.wall||!game->textures.portal)
 		return (false);
 	game->map.tile_size = w;
 	return (true);
@@ -50,8 +52,9 @@ void	init_game(t_game *game)
 			game->map.map_height * game->map.tile_size, "so_long");
 	if (!game->win)
 		clean_exit_err(game, "Error\nFailed to create window");
-	get_player_position(game);
-	get_nb_collectible(game);
+	set_player_position(game);
+	set_portals_positions(game);
+	set_nb_collectible(game);
 }
 
 void	init_game_value(t_game *game)
@@ -64,6 +67,7 @@ void	init_game_value(t_game *game)
 	game->textures.exit = NULL;
 	game->textures.player = NULL;
 	game->textures.wall = NULL;
+	game->textures.portal = NULL;
 	game->nb_collectible_get = 0;
 	game->nb_collectible_total = 0;
 	game->player.nb_move = 0;

@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:21:25 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 16:55:04 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 15:06:30 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,22 @@ static void	put_texture(t_game *game, void *texture, int x, int y)
 		x * game->map.tile_size, y * game->map.tile_size);
 }
 
+static void	set_textures(t_game *game, char loc, int loc_x, int loc_y)
+{
+	if (loc == WALL)
+		put_texture(game, game->textures.wall, loc_x, loc_y);
+	if (loc == FLOOR)
+		put_texture(game, game->textures.floor, loc_x, loc_y);
+	if (loc == COLLECTIBLE)
+		put_texture(game, game->textures.collectible, loc_x, loc_y);
+	if (loc == EXIT)
+		put_texture(game, game->textures.exit, loc_x, loc_y);
+	if (loc == PLAYER)
+		put_texture(game, game->textures.player, loc_x, loc_y);
+	if (loc == PORTAL)
+		put_texture(game, game->textures.portal, loc_x, loc_y);
+}
+
 void	update_textures(t_game *game)
 {
 	int		i;
@@ -31,18 +47,7 @@ void	update_textures(t_game *game)
 	{
 		j = -1;
 		while (game->map.map[i][++j])
-		{
-			if (game->map.map[i][j] == WALL)
-				put_texture(game, game->textures.wall, j, i);
-			if (game->map.map[i][j] == FLOOR)
-				put_texture(game, game->textures.floor, j, i);
-			if (game->map.map[i][j] == COLLECTIBLE)
-				put_texture(game, game->textures.collectible, j, i);
-			if (game->map.map[i][j] == EXIT)
-				put_texture(game, game->textures.exit, j, i);
-			if (game->map.map[i][j] == PLAYER)
-				put_texture(game, game->textures.player, j, i);
-		}
+			set_textures(game, game->map.map[i][j], j, i);
 	}
 	nb_moves = ft_itoa(game->player.nb_move);
 	mlx_string_put(game->mlx, game->win, 30, 30, 0xFF0000, nb_moves);

@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:18:50 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/17 16:39:03 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/19 15:14:39 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	count_lines_map(t_game *game, char *pathname_map)
 	return (nb_lines);
 }
 
-void	get_player_position(t_game *game)
+void	set_player_position(t_game *game)
 {
 	int	i;
 	int	j;
@@ -66,7 +66,7 @@ void	get_player_position(t_game *game)
 	}
 }
 
-void	get_nb_collectible(t_game *game)
+void	set_nb_collectible(t_game *game)
 {
 	int	i;
 	int	j;
@@ -78,6 +78,34 @@ void	get_nb_collectible(t_game *game)
 		while (game->map.map[i][++j])
 			if (game->map.map[i][j] == COLLECTIBLE)
 				game->nb_collectible_total++;
+	}
+}
+
+void	set_portals_positions(t_game *game)
+{
+	int	i;
+	int	j;
+	int	portal_selected;
+
+	portal_selected = 1;
+	i = -1;
+	while (game->map.map[++i])
+	{
+		j = -1;
+		while (game->map.map[i][++j])
+		{
+			if (game->map.map[i][j] == PORTAL && portal_selected == 1)
+			{
+				portal_selected++;
+				game->portals.entry_y = i;
+				game->portals.entry_x = j;
+			}
+			else if (game->map.map[i][j] == PORTAL && portal_selected == 2)
+			{
+				game->portals.exit_y = i;
+				game->portals.exit_x = j;
+			}
+		}
 	}
 }
 
