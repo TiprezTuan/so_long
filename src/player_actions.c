@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 13:43:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/19 15:34:51 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/22 18:37:53 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	player_actions(int key, t_game *game)
 		clean_exit(game);
 	else
 		return (0);
-	respawn_portals(game);
+	if (game->portals.entry_x != 0 && game->portals.entry_y != 0)
+		respawn_portals(game);
 	update_textures(game);
 	return (1);
 }

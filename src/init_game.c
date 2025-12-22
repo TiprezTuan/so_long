@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 16:10:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/19 15:20:26 by ttiprez          ###   ########.fr       */
+/*   Updated: 2025/12/22 18:39:47 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,8 @@ void	init_game_value(t_game *game)
 	game->nb_collectible_get = 0;
 	game->nb_collectible_total = 0;
 	game->player.nb_move = 0;
+	game->portals.entry_x = 0;
+	game->portals.entry_x = 0;
+	game->portals.exit_x = 0;
+	game->portals.exit_y = 0;
 }
