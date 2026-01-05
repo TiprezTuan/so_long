@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 13:59:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/19 14:41:55 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/05 11:47:32 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-static bool	is_enclosed_by_wall(char **map)
+static bool	is_enclosed_by_wall(char **map, int map_width)
 {
 	int	i;
 	int	j;
@@ -35,9 +35,8 @@ static bool	is_enclosed_by_wall(char **map)
 			j = -1;
 			if (map[i][0] != WALL)
 				return (false);
-			while (map[i][++j] && map[i][j + 1])
-				if (!map[i][j + 1] && map[i][j] != WALL)
-					return (false);
+			if (map[i][map_width - 1] != WALL)
+				return (false);
 		}
 	}
 	return (true);
@@ -102,9 +101,9 @@ static bool	have_valid_numbers_of_portals(char **map)
 	return (nb_portals == 0 || nb_portals == 2);
 }
 
-bool	check_map_integrity(char **map)
+bool	check_map_integrity(char **map, int map_width)
 {
-	if (!is_enclosed_by_wall(map))
+	if (!is_enclosed_by_wall(map, map_width))
 	{
 		ft_putendl_fd("Error", 2);
 		return (ft_putendl_fd("The map must be enclosed by wall.", 2), false);

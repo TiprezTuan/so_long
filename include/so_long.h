@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:45 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/19 14:41:41 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/05 11:47:49 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	set_portals_positions(t_game *game);
 char	**parse_map(t_game *game, char *pathname_map);
 
 /*		check_map_integrity.c		*/
-bool	check_map_integrity(char **map);
+bool	check_map_integrity(char **map, int map_width);
 
 /*		error_management.c		*/
 void	free_map(t_map *map);
