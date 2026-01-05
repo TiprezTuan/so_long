@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:24 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/05 11:47:56 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:46:59 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,24 @@ static t_map	*copy_map(t_map map)
 	return (map_copied);
 }
 
+static bool	check_map_values(char **map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j] && map[i][j + 1])
+			if (!(map[i][j] == EXIT || map[i][j] == WALL || map[i][j] == PORTAL
+				|| map[i][j] == PLAYER || map[i][j] == COLLECTIBLE || 
+				map[i][j] == FLOOR))
+				return (false);
+	}
+	return (true);
+}
+
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -62,8 +80,13 @@ int	main(int ac, char **av)
 	check_argc(ac, av);
 	init_game_value(&game);
 	game.map.map = parse_map(&game, av[1]);
+	if (!check_map_values(game.map.map))
+	{
+		ft_putendl_fd("Error\nThe map contains invalid values.", 2);
+		clean_exit(&game);
+	}
 	if (!check_map_integrity(game.map.map, game.map.map_width))
-		clean_exit_err(&game, NULL);
+		clean_exit(&game);
 	if (!pathfinder(copy_map(game.map), &(t_pathfinder){0, 0, 0, 0}))
 		clean_exit_err(&game, "Error\nNo valid path in the map");
 	init_game(&game);

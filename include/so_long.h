@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:45 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/05 11:47:49 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:47:12 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	check_map_integrity(char **map, int map_width);
 /*		error_management.c		*/
 void	free_map(t_map *map);
 void	clean_exit_err(t_game *game, char *msg);
-int		clean_exit(t_game *game);
+void	clean_exit(t_game *game);
 
 /*		render_game.c		*/
 void	update_textures(t_game *game);

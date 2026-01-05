@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:32:41 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/19 15:21:10 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:46:38 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ void	clean_exit_err(t_game *game, char *msg)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-	ft_putendl_fd(msg, 2);
+	if (msg)
+		ft_putendl_fd(msg, 2);
 	exit(EXIT_FAILURE);
 }
 
-int	clean_exit(t_game *game)
+void	clean_exit(t_game *game)
 {
 	if (game->map.map)
 		free_map(&game->map);
@@ -71,5 +72,4 @@ int	clean_exit(t_game *game)
 		free(game->mlx);
 	}
 	exit(EXIT_SUCCESS);
-	return (1);
 }
