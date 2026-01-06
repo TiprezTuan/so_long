@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 09:54:24 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/05 14:46:59 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/06 16:36:37 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static bool	check_map_values(char **map)
 		j = -1;
 		while (map[i][++j] && map[i][j + 1])
 			if (!(map[i][j] == EXIT || map[i][j] == WALL || map[i][j] == PORTAL
-				|| map[i][j] == PLAYER || map[i][j] == COLLECTIBLE || 
+				|| map[i][j] == PLAYER || map[i][j] == COLLECTIBLE ||
 				map[i][j] == FLOOR))
 				return (false);
 	}

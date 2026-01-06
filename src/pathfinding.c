@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 15:39:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/19 15:51:20 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/06 16:36:44 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	set_finder_xy(t_map *map, t_pathfinder *finder)
 	}
 }
 
-static void go_to_exit_portal(t_map *map, int *ny, int *nx)
+static void	go_to_exit_portal(t_map *map, int *ny, int *nx)
 {
 	int	i;
 	int	j;

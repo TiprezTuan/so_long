@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 16:10:10 by ttiprez           #+#    #+#             */
-/*   Updated: 2025/12/22 18:39:47 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/06 16:36:21 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	init_textures(t_game *game)
 			"./texture/portal.xpm", &w, &h);
 	if (!game->textures.floor || !game->textures.exit
 		|| !game->textures.collectible || !game->textures.player
-		|| !game->textures.wall||!game->textures.portal)
+		|| !game->textures.wall ||!game->textures.portal)
 		return (false);
 	game->map.tile_size = w;
 	return (true);
